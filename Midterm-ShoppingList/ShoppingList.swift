@@ -1,7 +1,7 @@
 //
 //  File Name:          ShoppingList.swift
 //  Application Name:   Midterm-ShoppingList
-//  Description:        Model for the Shopping List 
+//  Description:        Model for the Shopping List
 //
 //  Created by:         Shelalaine Chan
 //  Student ID:         300924281

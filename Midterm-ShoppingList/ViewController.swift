@@ -97,6 +97,13 @@ class ViewController: UIViewController,
         }
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        // Remove the task of the tableview selected
+        shoppingItems.remove(at: indexPath.row)
+        shoppingList?.shoppingItems.remove(at: indexPath.row)
+        table.deleteRows(at: [indexPath], with: .fade)
+    }
+    
     // MARK: Action Handlers
     @IBAction func saveButton(_ sender: UIButton) {
     }

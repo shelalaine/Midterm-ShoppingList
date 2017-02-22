@@ -1,15 +1,19 @@
 //
-//  ListTableViewCell.swift
-//  Midterm-ShoppingList
+//  File Name:          ListTableViewCell.swift
+//  Application Name:   Midterm-ShoppingList
+//  Description:        Custom list table view cell
 //
-//  Created by Shelalaine Chan on 2017-02-21.
+//  Created by:         Shelalaine Chan
+//  Student ID:         300924281
+//  Change History:     2017-02-21, Created
+// 
 //  Copyright © 2017 ShelalaineChan. All rights reserved.
 //
 
 import UIKit
 
 protocol ListTableViewCellDelegate {
-    func updateItemQuantity(sender: ListTableViewCell, quantity: Double)
+    func updateItemQuantity(sender: ListTableViewCell, quantity: Int)
     func updateItemName(sender: ListTableViewCell, name: String)
 }
 
@@ -34,7 +38,7 @@ class ListTableViewCell: UITableViewCell, UITextFieldDelegate {
     }
 
     @IBAction func changeStepperHandler(_ sender: UIStepper) {
-        self.cellDelegate?.updateItemQuantity(sender: self, quantity: sender.value)
+        self.cellDelegate?.updateItemQuantity(sender: self, quantity: Int(sender.value))
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

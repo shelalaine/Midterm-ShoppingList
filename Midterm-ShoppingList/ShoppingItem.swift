@@ -1,6 +1,7 @@
 //
 //  File Name:          ShoppingList.swift
 //  Application Name:   Midterm-ShoppingList
+//  Description:        Model for the shopping items
 //
 //  Created by:         Shelalaine Chan 
 //  Student ID:         300924281
@@ -13,9 +14,9 @@ import Foundation
 
 class ShoppingItem {
     var item: String
-    var quantity: Double
+    var quantity: Int
     
-    init(item: String, quantity: Double) {
+    init(item: String, quantity: Int) {
         self.item = item
         self.quantity = quantity
     }

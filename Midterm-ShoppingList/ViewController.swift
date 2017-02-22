@@ -1,8 +1,12 @@
 //
-//  ViewController.swift
-//  Midterm-ShoppingList
+//  File Name:          ViewController.swift
+//  Application Name:   Midterm-ShoppingList
+//  Description:        Main View Controller
 //
-//  Created by Shelalaine Chan on 2017-02-21.
+//  Created by:         Shelalaine Chan
+//  Student ID:         300924281
+//  Change History:     2017-02-21, Created
+
 //  Copyright © 2017 ShelalaineChan. All rights reserved.
 //
 
@@ -28,6 +32,10 @@ class ViewController: UIViewController,
         
         listNameTextField.delegate = self
         shoppingNameEntered = false
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        itemTextField.isEnabled = false
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -56,21 +64,36 @@ class ViewController: UIViewController,
     
     private func saveShoppingList() {
         if shoppingNameEntered == false {
+            
+            if listNameTextField.text! != "" {
             shoppingNameEntered = true
             shoppingList = ShoppingList(name: listNameTextField.text!)
             shoppingListLabelHeader.text = (shoppingList?.name)! + " items"
-            listNameTextField.resignFirstResponder()
-        } else {
-            let newItem = itemTextField.text!
-            shoppingList?.addItem(item: ShoppingItem(item: newItem, quantity: 1))
-            shoppingItems.append(ShoppingItem(item: newItem, quantity: 1))
             
-            // Update the table
-            let count = (shoppingList?.shoppingItems.count)!
-            table.beginUpdates()
-            table.insertRows(at: [IndexPath(row: count - 1, section: 0)], with: .automatic)
-            table.endUpdates()
-            print("Added")
+            // Allow user to enter items
+            itemTextField.isEnabled = true
+            }
+            
+            listNameTextField.resignFirstResponder()
+
+        } else {
+            
+            if itemTextField.text! != "" {
+                // Do not allow users to enter the Shopping list name
+                listNameTextField.isEnabled = false
+                
+                let newItem = itemTextField.text!
+                shoppingList?.addItem(item: ShoppingItem(item: newItem, quantity: 1))
+                shoppingItems.append(ShoppingItem(item: newItem, quantity: 1))
+                
+                // Update the table
+                let count = (shoppingList?.shoppingItems.count)!
+                table.beginUpdates()
+                table.insertRows(at: [IndexPath(row: count - 1, section: 0)], with: .automatic)
+                table.endUpdates()
+                print("Added")
+            }
+            itemTextField.resignFirstResponder()
         }
     }
     
@@ -79,11 +102,16 @@ class ViewController: UIViewController,
     }
     
     @IBAction func cancelButton(_ sender: UIButton) {
+        
+        // Clear shopping items
+        shoppingItems.removeAll()
+        shoppingList?.shoppingItems.removeAll()
+        self.table.reloadData()
+
     }
     
-    
     // MARK: Protocol delegate implementation
-    func updateItemQuantity(sender: ListTableViewCell, quantity: Double) {
+    func updateItemQuantity(sender: ListTableViewCell, quantity: Int) {
         if let indexPath = self.table.indexPath(for: sender) {
             
             // Update the UI quantity and the list
